@@ -118,23 +118,27 @@ const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentInde
                 </a>
               </div>
 
-              <div class="post-author">
-                <div class="post-author-box">
-                  <div class="author-infos w-clearfix">
-                    <img src={author.avatar} alt={author.name} class="author-img" />
-                    <div class="author-name-box">
-                      <h4 class="author-name">{author.name}</h4>
-                      <div class="author-job">Editor</div>
+              <div class="post-author" style="background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(10px); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px; margin-top: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 14px;">
+                  <div class="author-infos w-clearfix" style="margin: 0; display: flex; align-items: center; gap: 12px;">
+                    <img src={author.avatar} alt={author.name} class="author-img" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; margin: 0;" />
+                    <div class="author-name-box" style="margin: 0;">
+                      <h4 class="author-name" style="margin: 0 0 2px 0; font-size: 1.15rem; font-weight: 700; line-height: 1.2;">{author.name}</h4>
+                      <div class="author-job" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #777;">Editor</div>
                     </div>
                   </div>
-                  <div class="author-socials">
-                    <a href={author.facebook || "#"} class="author-social-link w-inline-block"><img src="/images/facebook-logo-light.svg" width="75" alt="" class="author-social-icon"></a>
-                    <a href={author.twitter || "#"} class="author-social-link w-inline-block"><img src="/images/twitter-logo-light.svg" width="75" alt="" class="author-social-icon"></a>
+                  
+                  <div style="display: flex; align-items: center; gap: 16px;">
+                    <div class="author-socials" style="margin: 0; display: flex; gap: 8px;">
+                      <a href={author.facebook || "#"} class="author-social-link w-inline-block" style="margin: 0;"><img src="/images/facebook-logo-light.svg" width="22" alt="" class="author-social-icon" style="width: 22px; height: 22px;"></a>
+                      <a href={author.twitter || "#"} class="author-social-link w-inline-block" style="margin: 0;"><img src="/images/twitter-logo-light.svg" width="22" alt="" class="author-social-icon" style="width: 22px; height: 22px;"></a>
+                    </div>
+                    <a href={`/author/${post.data.author}`} class="author-button w-button" style="margin: 0; padding: 6px 14px; font-size: 0.8rem; border-radius: 6px;">all posts</a>
                   </div>
-                  <a href={`/author/${post.data.author}`} class="author-button w-button">all posts</a>
                 </div>
-                <div class="post-author-box">
-                  <p class="author-paragraph">{author.bio}</p>
+                
+                <div>
+                  <p class="author-paragraph" style="margin: 0; font-size: 0.9rem; line-height: 1.6; color: #444;">{author.bio}</p>
                 </div>
               </div>
 

@@ -105,20 +105,22 @@ const { seo } = Astro.props;
       </div>
     </div>
 
-    <!-- Webflow scripts / UI behaviors from plugins.js & jquery -->
-    <script is:inline src="/js/jquery.min.js"></script>
-    <script is:inline src="/js/plugins.js"></script>
-    <script is:inline src="/js/webfont.js"></script>
+    <!-- Webflow scripts / UI behaviors from plugins.js & jquery loaded as non-blocking -->
+    <script is:inline src="/js/jquery.min.js" defer></script>
+    <script is:inline src="/js/plugins.js" defer></script>
+    <script is:inline src="/js/webfont.js" defer></script>
     <script is:inline>
-      if (typeof WebFont !== 'undefined') {
-        WebFont.load({ google: { families: ["Manrope:200,300,regular,500,600,700,800"] } });
-      }
-      
-      // Basic menu toggling for mobile menus inside standard Webflow structure
-      $(document).ready(function() {
-        $('.menu-button').on('click', function() {
-          $('.main-menu').toggleClass('w--open');
-        });
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof WebFont !== 'undefined') {
+          WebFont.load({ google: { families: ["Manrope:200,300,regular,500,600,700,800"] } });
+        }
+        
+        // Basic menu toggling for mobile menus inside standard Webflow structure
+        if (typeof $ !== 'undefined') {
+          $('.menu-button').on('click', function() {
+            $('.main-menu').toggleClass('w--open');
+          });
+        }
       });
     </script>
   </body>
