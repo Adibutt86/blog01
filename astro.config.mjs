@@ -13,7 +13,7 @@ export default defineConfig({
     compress({
       CSS: true,
       HTML: true,
-      Image: false, // We'll manage images via Astro's native asset processor
+      Image: true, // Enable build-time compression and WebP conversion for local assets
       JavaScript: true,
       SVG: true
     })
