@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+---
+
+<Layout seo={{ title: "Page Not Found - Frenzy", description: "Oops! The page you are looking for does not exist." }}>
+  <div class="main-content">
+    <div class="main-container">
+      <div class="w-row" style="display: flex; flex-wrap: wrap;">
+        <div class="column w-col w-col-8 w-col-stack" style="flex: 1; min-width: 300px;">
+          <div class="single-post-body" style="padding: 60px 20px; text-align: center;">
+            <h1 style="font-size: 6rem; font-weight: 800; margin: 0; color: #333;">404</h1>
+            <h2 style="font-size: 2rem; margin-top: 10px; margin-bottom: 20px;">Page Not Found</h2>
+            <p style="color: #666; margin-bottom: 30px;">The link might be broken or the page was moved.</p>
+            <a href="/" class="form-button form-button2 w-button" style="display: inline-block; padding: 12px 24px; text-decoration: none;">
+              Back to Home
+            </a>
+          </div>
+        </div>
+        <div class="column w-col w-col-4 w-col-stack" style="flex: 0 0 300px;">
+          <Sidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

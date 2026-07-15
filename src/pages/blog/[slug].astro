@@ -1,0 +1,162 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Sidebar from '../../components/Sidebar.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+// Retrieve author information
+const authorEntry = await getEntry('authors', post.data.author);
+const author = authorEntry ? authorEntry.data : {
+  name: "Max Themes",
+  bio: "Creative designer and template creator for Webflow and modern websites.",
+  avatar: "/images/author1.jpg",
+  twitter: "#",
+  facebook: "#",
+  instagram: "#"
+};
+
+// Calculate Estimated Reading Time
+const wordCount = post.body.split(/\s+/g).length;
+const readingTimeMinutes = Math.max(1, Math.round(wordCount / 200));
+
+// Find previous and next posts
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+const currentIndex = sortedPosts.findIndex(p => p.slug === post.slug);
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+---
+
+<Layout seo={{
+  title: `${post.data.title} - Frenzy`,
+  description: post.data.description,
+  excerpt: post.data.excerpt,
+  author: author.name,
+  category: post.data.category,
+  tags: post.data.tags,
+  publishedDate: post.data.publishedDate,
+  featuredImage: post.data.featuredImage,
+  featuredImageAlt: post.data.featuredImageAlt,
+  keywords: post.data.keywords,
+  type: 'article'
+}}>
+  <div class="main-content">
+    <div class="main-container">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="w-layout-blockcontainer main-container w-container" style="margin-bottom: 20px;">
+        <ol class="flex space-x-2 text-sm text-gray-500" style="display: flex; gap: 8px; list-style: none; padding: 0;">
+          <li><a href="/" class="hover:underline">Home</a></li>
+          <li><span>/</span></li>
+          <li><a href="/blog" class="hover:underline">Blog</a></li>
+          <li><span>/</span></li>
+          <li><a href={`/category/${post.data.category.toLowerCase()}`} class="hover:underline">{post.data.category}</a></li>
+          <li><span>/</span></li>
+          <li aria-current="page" class="text-gray-900 font-medium truncate max-w-[200px]">{post.data.title}</li>
+        </ol>
+      </nav>
+
+      <div class="w-row">
+        <div class="column w-col w-col-8 w-col-stack">
+          <article class="single-post-body">
+            <img src={post.data.featuredImage} alt={post.data.featuredImageAlt || post.data.title} class="blog-image" />
+            <div class="single-blog-inner">
+              <h1 class="signle-post-title" style="font-size: 2.5rem; margin-top: 10px; margin-bottom: 20px;">{post.data.title}</h1>
+              
+              <div class="post-meta-details" style="display: flex; gap: 15px; margin-bottom: 20px; color: #555; font-size: 0.9rem;">
+                <div>Category: <a href={`/category/${post.data.category.toLowerCase()}`} style="font-weight: bold;">{post.data.category}</a></div>
+                <div>•</div>
+                <div>Published: {new Date(post.data.publishedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                <div>•</div>
+                <div>Reading Time: {readingTimeMinutes} min read</div>
+              </div>
+
+              <!-- Post Content Rendered from MDX -->
+              <div class="single-post-paragraph">
+                <Content />
+              </div>
+
+              <!-- Previous / Next post pagination -->
+              <div class="prev-next-links" style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                {prevPost ? (
+                  <a href={`/blog/${prevPost.slug}`} style="max-width: 45%; display: block;">
+                    <div style="font-size: 0.8rem; color: #777;">&larr; Previous Post</div>
+                    <span style="font-weight: bold; font-size: 0.95rem;">{prevPost.data.title}</span>
+                  </a>
+                ) : <div />}
+                {nextPost ? (
+                  <a href={`/blog/${nextPost.slug}`} style="max-width: 45%; display: block; text-align: right;">
+                    <div style="font-size: 0.8rem; color: #777;">Next Post &rarr;</div>
+                    <span style="font-weight: bold; font-size: 0.95rem;">{nextPost.data.title}</span>
+                  </a>
+                ) : <div />}
+              </div>
+
+              <div class="single-post-tags" style="margin-top: 30px;">
+                {post.data.tags.map(tag => (
+                  <a href={`/tag/${tag.toLowerCase()}`} class="taks-link single-tags">{tag.toLowerCase()}</a>
+                ))}
+              </div>
+
+              <!-- Share Buttons -->
+              <div class="share-buttons" style="margin-top: 30px; display: flex; align-items: center; gap: 12px;">
+                <span style="font-weight: bold;">Share article:</span>
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener noreferrer" class="author-social-link w-inline-block">
+                  <img src="/images/facebook-logo-light.svg" width="30" alt="Share on Facebook" />
+                </a>
+                <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(Astro.url.href)}&text=${encodeURIComponent(post.data.title)}`} target="_blank" rel="noopener noreferrer" class="author-social-link w-inline-block">
+                  <img src="/images/twitter-logo-light.svg" width="30" alt="Share on Twitter" />
+                </a>
+              </div>
+
+              <div class="post-author">
+                <div class="post-author-box">
+                  <div class="author-infos w-clearfix">
+                    <img src={author.avatar} alt={author.name} class="author-img" />
+                    <div class="author-name-box">
+                      <h4 class="author-name">{author.name}</h4>
+                      <div class="author-job">Editor</div>
+                    </div>
+                  </div>
+                  <div class="author-socials">
+                    <a href={author.facebook || "#"} class="author-social-link w-inline-block"><img src="/images/facebook-logo-light.svg" width="75" alt="" class="author-social-icon"></a>
+                    <a href={author.twitter || "#"} class="author-social-link w-inline-block"><img src="/images/twitter-logo-light.svg" width="75" alt="" class="author-social-icon"></a>
+                  </div>
+                  <a href={`/author/${post.data.author}`} class="author-button w-button">all posts</a>
+                </div>
+                <div class="post-author-box">
+                  <p class="author-paragraph">{author.bio}</p>
+                </div>
+              </div>
+
+              <!-- Contact/Feedback Form in Comments area -->
+              <div class="comment-form w-form" style="margin-top: 50px;">
+                <h4 class="coments-area-title" style="margin-bottom: 20px;">Leave a feedback</h4>
+                <form id="comment-form-submit" method="POST" action="#">
+                  <div class="form-inputs">
+                    <input type="text" name="Name" id="CommentName" placeholder="name" class="input-style input-style-single w-input" required />
+                    <input type="email" name="Email" id="CommentEmail" placeholder="email" class="input-style input-style-single w-input" required />
+                    <textarea name="Message" rows="10" id="CommentMessage" placeholder="message" class="input-style input-style-single textarea w-input" required></textarea>
+                    <input type="submit" value="Submit Feedback" class="form-button form-button2 w-button" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="column w-col w-col-4 w-col-stack">
+          <Sidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

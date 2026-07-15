@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allCategories = await getCollection('categories');
+---
+
+<Layout seo={{ title: "All Categories - Frenzy", description: "Browse posts by categories such as Science, Entertainment, Travel, and more." }}>
+  <section class="categories-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="home-category-list-wrapper w-dyn-list">
+        <div role="list" class="home-category-list category-page-list w-dyn-items">
+          {allCategories.map(cat => (
+            <div role="listitem" class="w-dyn-item">
+              <a data-w-id="frenzy110" href={`/category/${cat.id}`} class="category-grid-item category-page-grid-item w-inline-block">
+                <img
+                  alt={cat.data.name}
+                  src={cat.data.image || '/images/post-bg.jpg'}
+                  class="blog-category-main-image"
+                />
+                <div class="gradient-overlay"></div>
+                <div class="category-name">{cat.data.name}</div>
+                <img
+                  src="/images/readmore.png"
+                  style="opacity: 0; transform: translate3d(0px, 60%, 0px) scale3d(1, 1, 1);"
+                  alt="Read more arrow"
+                  class="blog-arrow"
+                />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

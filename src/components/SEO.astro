@@ -1,0 +1,56 @@
+---
+import { type SEOProps, generateSchemaOrg } from '../utils/seo';
+
+interface Props {
+  seo: SEOProps;
+}
+
+const { seo } = Astro.props;
+
+const siteUrl = 'https://frenzy.vercel.app';
+const canonicalURL = seo.canonical || new Date() ? new URL(Astro.url.pathname, siteUrl).toString() : Astro.url.href;
+const currentUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+const ogImage = seo.ogImage || seo.featuredImage || '/images/post-bg.jpg';
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+const twitterImage = seo.twitterImage || seo.featuredImage || '/images/post-bg.jpg';
+const twitterImageUrl = twitterImage.startsWith('http') ? twitterImage : `${siteUrl}${twitterImage}`;
+
+const schemaJson = generateSchemaOrg(seo, siteUrl, currentUrl);
+---
+
+<title>{seo.title}</title>
+<meta name="description" content={seo.description} />
+{seo.keywords && seo.keywords.length > 0 && (
+  <meta name="keywords" content={seo.keywords.join(', ')} />
+)}
+
+<!-- Canonical Link -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={seo.type || 'website'} />
+<meta property="og:url" content={currentUrl} />
+<meta property="og:title" content={seo.title} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:alt" content={seo.featuredImageAlt || seo.title} />
+<meta property="og:locale" content={seo.language || 'en_US'} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content={currentUrl} />
+<meta name="twitter:title" content={seo.title} />
+<meta name="twitter:description" content={seo.description} />
+<meta name="twitter:image" content={twitterImageUrl} />
+<meta name="twitter:image:alt" content={seo.featuredImageAlt || seo.title} />
+
+<!-- Favicon, Icons and Theme -->
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link rel="apple-touch-icon" href="/images/webclip.png" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="robots" content="index, follow" />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={schemaJson} />

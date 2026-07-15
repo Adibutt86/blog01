@@ -1,0 +1,72 @@
+---
+import { getCollection } from 'astro:content';
+
+const allCategories = await getCollection('categories');
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+
+// Get unique tags across all posts
+const allTags = Array.from(new Set(allPosts.flatMap(post => post.data.tags || [])));
+
+// Get latest 3 posts for the aside list
+const latestAsidePosts = allPosts.slice(0, 3);
+---
+
+<div class="aside">
+  <div class="aside-category">
+    <h4 class="aside-title">categories</h4>
+    <ul class="category-list">
+      {allCategories.map(cat => (
+        <li><a href={`/category/${cat.id}`}>{cat.data.name.toUpperCase()}</a></li>
+      ))}
+    </ul>                                
+  </div>    
+
+
+  <div class="aside-post-wrapper">
+    {latestAsidePosts.map(post => (
+      <a href={`/blog/${post.slug}`} class="aside-post w-inline-block">
+        <h4 class="heading2">{post.data.title}</h4>
+        <img src={post.data.featuredImage} alt={post.data.title} class="aside-post-img" />
+      </a>
+    ))}
+  </div>
+
+  <div class="aside-category">
+    <h4 class="aside-title">archive</h4>
+    <ul class="category-list">
+      <li><a href="/blog">March 2023</a></li>
+      <li><a href="/blog" class="active">February 2023</a></li>
+      <li><a href="/blog">January 2023</a></li>
+      <li><a href="/blog">December 2022</a></li>
+    </ul>                              
+  </div>
+
+  <div class="socials">
+    <h4 class="aside-title">social</h4>
+    <a href="#" class="social-link w-inline-block">
+      <div class="social-text">facebook</div>
+      <div class="social-number">54.4K</div>
+    </a>
+    <a href="#" class="social-link w-inline-block">
+      <div class="social-text">X</div>
+      <div class="social-number">36.4K</div>
+    </a>
+    <a href="#" class="social-link w-inline-block">
+      <div class="social-text">linkedin</div>
+      <div class="social-number">35.5k</div>
+    </a>
+  </div>
+
+  <div class="tags">
+    <h4 class="aside-title">tags</h4>
+    <div class="tags-wrapper">
+      {allTags.map(tag => (
+        <a href={`/tag/${tag.toLowerCase()}`} class="taks-link">{tag.toLowerCase()}</a>
+      ))}
+    </div>
+  </div>
+
+  <div class="ads">
+    <a href="#" class="ad w-inline-block"><img src="/images/ad.png" alt="Ad Banner" class="add-image" /></a>
+  </div>
+</div>

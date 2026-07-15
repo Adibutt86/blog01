@@ -1,0 +1,217 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+
+// Featured categories based on categories mapping
+const categoryImages: Record<string, string> = {
+  Entertainment: '/images/post16.jpg',
+  Nature: '/images/post21.jpg',
+  Gaming: '/images/post24.jpg',
+  Business: '/images/post25.jpg',
+  Science: '/images/post1.jpg',
+  Education: '/images/post11.jpg',
+  Sport: '/images/post2.jpg',
+  Travel: '/images/post4.jpg'
+};
+
+const topCategories = ['Entertainment', 'Nature', 'Gaming', 'Business', 'Science', 'Education', 'Sport', 'Travel'];
+
+// Tech category posts
+const techPosts = sortedPosts.filter(post => post.data.category === 'Science').slice(0, 6);
+
+// Education category posts
+const educationPosts = sortedPosts.filter(post => post.data.category === 'Education');
+const featuredEducation = educationPosts[0];
+const listEducation = educationPosts.slice(1, 5);
+
+// Mixed posts
+const mixedPosts = sortedPosts.slice(0, 4);
+
+// Latest 4 posts below categories (under-category-section)
+const underCategoryPosts = sortedPosts.slice(0, 4);
+
+// Main blog posts (3 items in main-blog-section)
+const mainBlogPosts = sortedPosts.slice(0, 3);
+---
+
+<Layout seo={{ title: "Frennzy - Blog Template", description: "Modern, beautiful and clean blog template built with Astro 5" }}>
+  <section class="home-category">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="home-category-list-wrapper w-dyn-list">
+        <div role="list" class="home-category-list w-dyn-items">
+          {topCategories.map(cat => (
+            <div role="listitem" class="w-dyn-item">
+              <a href={`/category/${cat.toLowerCase()}`} data-w-id="4cd9ff82-9f16-1c9a-a92d-da3323fc9873" class="category-grid-item w-inline-block">
+                <img alt={`${cat} Category`} src={categoryImages[cat]} class="blog-category-main-image" />
+                <div class="gradient-overlay"></div>
+                <div class="category-name">{cat}</div>
+                <img src="/images/readmore.png" alt="Read more arrow" class="blog-arrow" style="opacity: 0; transform: translate3d(0px, 60%, 0px) scale3d(1, 1, 1);" />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="under-category-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="latest-blog-4-col-grid-wrapper w-dyn-list">
+        <div role="list" class="latest-blog-4-col-grid w-dyn-items">
+          {underCategoryPosts.map(post => (
+            <div role="listitem" class="w-dyn-item">
+              <a href={`/blog/${post.slug}`} class="latest-blog-4-col-grid-item w-inline-block w-clearfix">
+                <img alt={post.data.title} src={post.data.featuredImage} class="latest-blog-4-col-image" />
+                <h4 class="latest-blog-4-col-title">{post.data.title}</h4>
+                <div class="latest-blog-4-col-publish-time">
+                  {new Date(post.data.publishedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </div>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="main-blog-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="blog-list-wrapper w-dyn-list">
+        <div role="list" class="blog-list w-dyn-items">
+          {mainBlogPosts.map(post => (
+            <div role="listitem" class="w-dyn-item">
+              <a href={`/blog/${post.slug}`} class="blog-list-item w-inline-block">
+                <img alt={post.data.title} src={post.data.featuredImage} class="blog-main-image" />
+                <div class="blog-meta">
+                  <div class="category-text-style">{post.data.category}</div>
+                  <div class="reading-time">5 min Read</div>
+                  <img src="/images/arrow.png" alt="arrow" class="blog-meta-arrow" style="opacity: 0;" />
+                </div>
+                <h4 class="main-blog-title">{post.data.title}</h4>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="moving-text-section">
+    <div
+      data-w-id="a0231212-b5c8-f0cb-b3f7-89d0e89e298f"
+      style="transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1);"
+      class="moving-text-inner"
+    >
+      <div class="moving-text">
+        Travel     -     Business     -     Sport     -     Lifestyle     -     Design     -     Tech     -     Food     -     Fashion     -     Health     -     Entertainment     -     Science     -     Finance     -     Music     -     
+        Art     -     Environment     -     Education     -     Politics     -     Culture     -     Gaming     -     Wellness     -     Automotive     -     Travel     -     Photography     -     Innovation     -     Science
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-category-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="main-title">
+        <h2 class="main-title-heading">Tech</h2>
+        <div class="main-subtitle">latest news about technology</div>
+      </div>
+      <div class="tech-category-list-wrapper w-dyn-list">
+        <div role="list" class="tech-category-list w-dyn-items">
+          {techPosts.map(post => (
+            <div role="listitem" class="w-dyn-item">
+              <a href={`/blog/${post.slug}`} data-w-id="e42a7868-a1ff-3fab-a88f-530c4a479735" class="tech-category-item w-inline-block">
+                <img alt={post.data.title} src={post.data.featuredImage} class="tech-category-image" />
+                <div class="tech-text-box">
+                  <h4 class="tech-category-heading">{post.data.title}</h4>
+                  <div class="tech-category-time">
+                    {new Date(post.data.publishedDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                  </div>
+                </div>
+                <div class="tech-overlay"></div>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="education-category-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="main-title">
+        <h2 class="main-title-heading">education</h2>
+        <div class="main-subtitle">latest news about technology</div>
+      </div>
+
+      <div id="w-node-_9cd442b5-de66-2bb7-b333-bbce06bf2e44-bc733643" class="w-layout-layout education-category-stack wf-layout-layout">
+        {featuredEducation && (
+          <div
+            id="w-node-_9cd442b5-de66-2bb7-b333-bbce06bf2e45-bc733643"
+            data-w-id="9cd442b5-de66-2bb7-b333-bbce06bf2e45"
+            style="opacity: 1;"
+            class="w-layout-cell single-education-post"
+          >
+            <div class="single-education-wrapper w-dyn-list">
+              <div role="list" class="single-education-list w-dyn-items">
+                <div role="listitem" class="w-dyn-item">
+                  <a href={`/blog/${featuredEducation.slug}`} class="single-education-item w-inline-block">
+                    <img alt={featuredEducation.data.title} src={featuredEducation.data.featuredImage} class="single-education-image" />
+                    <div class="single-education-text-box">
+                      <h2 class="single-education-heading">{featuredEducation.data.title}</h2>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div
+          id="w-node-_9cd442b5-de66-2bb7-b333-bbce06bf2e46-bc733643"
+          data-w-id="9cd442b5-de66-2bb7-b333-bbce06bf2e46"
+          style="opacity: 1;"
+          class="w-layout-cell multi-education-blog-posts"
+        >
+          <div class="multi-education-list-wrapper w-dyn-list">
+            <div role="list" class="multi-education-list w-dyn-items">
+              {listEducation.map(post => (
+                <div role="listitem" class="w-dyn-item">
+                  <a href={`/blog/${post.slug}`} class="multi-education-list-item w-inline-block">
+                    <img alt={post.data.title} src={post.data.featuredImage} class="education-category-img" />
+                    <h4 class="multi-education-heading">{post.data.title}</h4>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mixed-section">
+    <div class="w-layout-blockcontainer main-container w-container">
+      <div class="main-title">
+        <h2 class="main-title-heading">mixed</h2>
+        <div class="main-subtitle">exploring a tapestry of topics and ideas</div>
+      </div>
+      <div class="mixed-blog-list-wrapper w-dyn-list">
+        <div role="list" class="mixed-blog-list w-dyn-items">
+          {mixedPosts.map(post => (
+            <div role="listitem" class="w-dyn-item">
+              <a href={`/blog/${post.slug}`} class="mixed-blog-item w-inline-block">
+                <div class="mixed-overlay"></div>
+                <img alt={post.data.title} src={post.data.featuredImage} class="mixed-img" />
+                <div class="mixed-blog-category">{post.data.category}</div>
+                <h4 class="mixed-blog-heading">{post.data.title}</h4>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

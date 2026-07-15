@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+---
+
+<Layout seo={{ title: "Contact Frenzy", description: "Reach out to the Frenzy team with questions, suggestions, or editorial feedback." }}>
+  <div class="main-content">
+    <div class="main-container">
+      <div class="w-row">
+        <div class="column w-col w-col-8 w-col-stack">
+          <div class="single-post-body" style="padding: 20px;">
+            <h1 class="signle-post-title" style="font-size: 2.5rem; margin-bottom: 20px;">Contact Us</h1>
+            <p>Have an inquiry, feedback, or custom request? Send us a message and we'll reply as soon as possible.</p>
+            
+            <div class="comment-form w-form" style="margin-top: 30px;">
+              <form id="contact-form-submit" method="POST" action="#">
+                <div class="form-inputs">
+                  <input type="text" name="Name" id="ContactName" placeholder="Name" class="input-style input-style-single w-input" required />
+                  <input type="email" name="Email" id="ContactEmail" placeholder="Email Address" class="input-style input-style-single w-input" required />
+                  <textarea name="Message" rows="10" id="ContactMessage" placeholder="Message content" class="input-style input-style-single textarea w-input" required></textarea>
+                  <input type="submit" value="Send Message" class="form-button form-button2 w-button" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="column w-col w-col-4 w-col-stack">
+          <Sidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

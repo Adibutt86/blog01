@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Sidebar from '../components/Sidebar.astro';
+---
+
+<Layout seo={{ title: "About Frenzy - Blog Template", description: "Discover the stories, goals, and team behind the Frenzy blog template." }}>
+  <div class="main-content">
+    <div class="main-container">
+      <div class="w-row">
+        <div class="column w-col w-col-8 w-col-stack">
+          <article class="single-post-body" style="padding: 20px;">
+            <img src="/images/about.jpg" alt="About Frenzy" class="blog-image" />
+            <div class="single-blog-inner">
+              <h1 class="signle-post-title" style="font-size: 2.5rem; margin-top: 10px; margin-bottom: 20px;">About Frenzy</h1>
+              
+              <div class="single-post-paragraph">
+                <p>Welcome to Frenzy! We are dedicated to providing the most exciting news and summaries on design, technology, science, and pop culture.</p>
+                <p>Our authors explore dynamic topics, bringing readers insights directly from industry trends, developer paradigms, and artistic creations.</p>
+                
+                <h4 style="font-size: 1.5rem; margin-top: 30px; margin-bottom: 15px;">Our Mission</h4>
+                <p>To connect creators, developers, designers, and enthusiasts through accessible, structured, and informative journalism.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="column w-col w-col-4 w-col-stack">
+          <Sidebar />
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

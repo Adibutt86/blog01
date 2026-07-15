@@ -1,0 +1,7 @@
+/* Team */
+Developer: Antigravity AI
+Contact: google-deepmind@google.com
+
+/* Site */
+Built With: Astro 5, MDX, Tailwind CSS v4, TypeScript
+Design: Frenzy HTML Template
