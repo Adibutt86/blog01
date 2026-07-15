@@ -1161,7 +1161,7 @@
 body {
   color: #000;
   background-color: #dde7f5;
-  font-family: Manrope, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
@@ -2994,7 +2994,7 @@ blockquote {
 .social-text {
   color: #000;
   text-transform: capitalize;
-  font-family: Manrope, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 15px;
   font-weight: 300;
 }
