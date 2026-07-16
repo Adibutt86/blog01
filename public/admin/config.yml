@@ -2,6 +2,7 @@ backend:
   name: github
   repo: Adibutt86/blog01
   branch: main
+local_backend: true
 
 media_folder: "public/images"
 public_folder: "/images"
