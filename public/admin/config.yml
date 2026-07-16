@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: Adibutt86/blog01
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "src/content/blog"
+    create: true
+    delete: true # Enable deleting draft posts setup
+    slug: "{{slug}}"
+    extension: "mdx"
+    format: "frontmatter"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Excerpt", name: "text", widget: "text", required: false }
+      - { label: "Author ID (e.g. max-themes)", name: "author", widget: "string", default: "max-themes" }
+      - { 
+          label: "Category", 
+          name: "category", 
+          widget: "select", 
+          options: ["Entertainment", "Life Style", "Games", "Cinema", "Series", "Technology", "Books", "Comics", "Manga and Anime"] 
+        }
+      - { label: "Tags", name: "tags", widget: "list", default: [] }
+      - { label: "Published Date", name: "publishedDate", widget: "datetime" }
+      - { label: "Featured Image", name: "featuredImage", widget: "image" }
+      - { label: "Featured Image Alt", name: "featuredImageAlt", widget: "string", default: "" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Keywords", name: "keywords", widget: "list", default: [] }
+      - { label: "Content Body", name: "body", widget: "markdown" } # Advanced text editor

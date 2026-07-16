@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 
 const allCategories = await getCollection('categories');
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await getCollection('blog', ({ data }) => !data.draft && new Date(data.publishedDate) <= new Date());
 
 // Get unique tags across all posts
 const allTags = Array.from(new Set(allPosts.flatMap(post => post.data.tags || [])));

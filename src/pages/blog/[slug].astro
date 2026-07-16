@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar.astro';
 import { getCollection, getEntry } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  const posts = await getCollection('blog', ({ data }) => !data.draft && new Date(data.publishedDate) <= new Date());
   return posts.map(post => ({
     params: { slug: post.slug },
     props: { post },
@@ -30,7 +30,7 @@ const wordCount = post.body.split(/\s+/g).length;
 const readingTimeMinutes = Math.max(1, Math.round(wordCount / 200));
 
 // Find previous and next posts
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const allPosts = await getCollection('blog', ({ data }) => !data.draft && new Date(data.publishedDate) <= new Date());
 const sortedPosts = allPosts.sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
 const currentIndex = sortedPosts.findIndex(p => p.slug === post.slug);
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;

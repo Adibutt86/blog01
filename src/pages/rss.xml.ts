@@ -1,7 +1,7 @@
 import { getCollection } from 'astro:content';
 
 export async function GET() {
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft && new Date(data.publishedDate) <= new Date());
   const sortedPosts = allPosts.sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
 
   const siteTitle = 'Frenzy Blog';

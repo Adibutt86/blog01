@@ -5,7 +5,7 @@ import { getCollection, getEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const allAuthors = await getCollection('authors');
-  const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+  const allPosts = await getCollection('blog', ({ data }) => !data.draft && new Date(data.publishedDate) <= new Date());
   
   return allAuthors.map(author => {
     const posts = allPosts.filter(post => post.data.author === author.id);
