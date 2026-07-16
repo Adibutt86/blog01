@@ -1624,18 +1624,29 @@ blockquote {
 }
 
 .home-category-list {
-  grid-column-gap: 16px;
-  grid-row-gap: 16px;
-  grid-template-rows: auto auto;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-auto-columns: 1fr;
-  display: grid;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  gap: 16px;
+  scroll-snap-type: x mandatory;
+  padding: 10px 0;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.home-category-list::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome/Safari */
+}
+
+.home-category-list .w-dyn-item {
+  flex: 0 0 280px; /* Fixed width for carousel items */
+  scroll-snap-align: start;
 }
 
 .home-category-list.category-page-list {
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
 }
 
 .category-grid-item {
