@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 
+export const prerender = false;
+
 export const GET: APIRoute = async ({ redirect }) => {
   const client_id = process.env.OAUTH_GITHUB_CLIENT_ID;
   
