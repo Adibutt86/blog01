@@ -20,3 +20,13 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+## Image Optimization
+
+All images added to the repository must be in **WebP** format.
+
+When generating new images or adding them, always run the prebuild script to automatically convert them to WebP and optimize them:
+
+```bash
+npm run prebuild
+```

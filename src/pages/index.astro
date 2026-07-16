@@ -7,15 +7,15 @@ const sortedPosts = allPosts.sort((a, b) => b.data.publishedDate.valueOf() - a.d
 
 // Featured categories based on categories mapping
 const categoryImages: Record<string, string> = {
-  Entertainment: '/images/post16.jpg',
-  'Life Style': '/images/post4.jpg',
-  Games: '/images/post24.jpg',
-  Cinema: '/images/post12.jpg',
-  Series: '/images/post13.jpg',
-  Technology: '/images/post1.jpg',
-  Books: '/images/post11.jpg',
-  Comics: '/images/post7.jpg',
-  'Manga and Anime': '/images/post10.jpg'
+  Entertainment: '/images/post16.webp',
+  'Life Style': '/images/post4.webp',
+  Games: '/images/post24.webp',
+  Cinema: '/images/post12.webp',
+  Series: '/images/post13.webp',
+  Technology: '/images/post1.webp',
+  Books: '/images/post11.webp',
+  Comics: '/images/post7.webp',
+  'Manga and Anime': '/images/post10.webp'
 };
 
 const topCategories = [
@@ -59,7 +59,7 @@ const mainBlogPosts = sortedPosts.slice(0, 3);
                 <img alt={`${cat} Category`} src={categoryImages[cat]} class="blog-category-main-image" />
                 <div class="gradient-overlay"></div>
                 <div class="category-name">{cat}</div>
-                <img src="/images/readmore.png" alt="Read more arrow" class="blog-arrow" style="opacity: 0; transform: translate3d(0px, 60%, 0px) scale3d(1, 1, 1);" />
+                <img src="/images/readmore.webp" alt="Read more arrow" class="blog-arrow" style="opacity: 0; transform: translate3d(0px, 60%, 0px) scale3d(1, 1, 1);" />
               </a>
             </div>
           ))}
@@ -99,7 +99,7 @@ const mainBlogPosts = sortedPosts.slice(0, 3);
                 <div class="blog-meta">
                   <div class="category-text-style">{post.data.category}</div>
                   <div class="reading-time">5 min Read</div>
-                  <img src="/images/arrow.png" alt="arrow" class="blog-meta-arrow" style="opacity: 0;" />
+                  <img src="/images/arrow.webp" alt="arrow" class="blog-meta-arrow" style="opacity: 0;" />
                 </div>
                 <h4 class="main-blog-title">{post.data.title}</h4>
               </a>

@@ -15,13 +15,13 @@ const allCategories = await getCollection('categories');
               <a data-w-id="frenzy110" href={`/category/${cat.id}`} class="category-grid-item category-page-grid-item w-inline-block">
                 <img
                   alt={cat.data.name}
-                  src={cat.data.image || '/images/post-bg.jpg'}
+                  src={cat.data.image || '/images/post-bg.webp'}
                   class="blog-category-main-image"
                 />
                 <div class="gradient-overlay"></div>
                 <div class="category-name">{cat.data.name}</div>
                 <img
-                  src="/images/readmore.png"
+                  src="/images/readmore.webp"
                   style="opacity: 0; transform: translate3d(0px, 60%, 0px) scale3d(1, 1, 1);"
                   alt="Read more arrow"
                   class="blog-arrow"
