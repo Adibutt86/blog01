@@ -14,7 +14,6 @@
     "decap": "decap-server"
   },
   "dependencies": {
-    "@astrojs/vercel": "^8.0.0",
     "astro": "^5.0.0"
   },
   "devDependencies": {
