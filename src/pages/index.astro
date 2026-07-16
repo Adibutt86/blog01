@@ -8,22 +8,33 @@ const sortedPosts = allPosts.sort((a, b) => b.data.publishedDate.valueOf() - a.d
 // Featured categories based on categories mapping
 const categoryImages: Record<string, string> = {
   Entertainment: '/images/post16.jpg',
-  Nature: '/images/post21.jpg',
-  Gaming: '/images/post24.jpg',
-  Business: '/images/post25.jpg',
-  Science: '/images/post1.jpg',
-  Education: '/images/post11.jpg',
-  Sport: '/images/post2.jpg',
-  Travel: '/images/post4.jpg'
+  'Life Style': '/images/post4.jpg',
+  Games: '/images/post24.jpg',
+  Cinema: '/images/post12.jpg',
+  Series: '/images/post13.jpg',
+  Technology: '/images/post1.jpg',
+  Books: '/images/post11.jpg',
+  Comics: '/images/post7.jpg',
+  'Manga and Anime': '/images/post10.jpg'
 };
 
-const topCategories = ['Entertainment', 'Nature', 'Gaming', 'Business', 'Science', 'Education', 'Sport', 'Travel'];
+const topCategories = [
+  'Entertainment',
+  'Life Style',
+  'Games',
+  'Cinema',
+  'Series',
+  'Technology',
+  'Books',
+  'Comics',
+  'Manga and Anime'
+];
 
 // Tech category posts
-const techPosts = sortedPosts.filter(post => post.data.category === 'Science').slice(0, 6);
+const techPosts = sortedPosts.filter(post => post.data.category === 'Technology').slice(0, 6);
 
 // Education category posts
-const educationPosts = sortedPosts.filter(post => post.data.category === 'Education');
+const educationPosts = sortedPosts.filter(post => post.data.category === 'Books');
 const featuredEducation = educationPosts[0];
 const listEducation = educationPosts.slice(1, 5);
 
@@ -106,8 +117,8 @@ const mainBlogPosts = sortedPosts.slice(0, 3);
       class="moving-text-inner"
     >
       <div class="moving-text">
-        Travel     -     Business     -     Sport     -     Lifestyle     -     Design     -     Tech     -     Food     -     Fashion     -     Health     -     Entertainment     -     Science     -     Finance     -     Music     -     
-        Art     -     Environment     -     Education     -     Politics     -     Culture     -     Gaming     -     Wellness     -     Automotive     -     Travel     -     Photography     -     Innovation     -     Science
+        Entertainment     -     Life Style     -     Games     -     Cinema     -     Series     -     Technology     -     Books     -     Comics     -     Manga and Anime     -     
+        Entertainment     -     Life Style     -     Games     -     Cinema     -     Series     -     Technology     -     Books     -     Comics     -     Manga and Anime
       </div>
     </div>
   </section>
@@ -115,7 +126,7 @@ const mainBlogPosts = sortedPosts.slice(0, 3);
   <section class="tech-category-section">
     <div class="w-layout-blockcontainer main-container w-container">
       <div class="main-title">
-        <h2 class="main-title-heading">Tech</h2>
+        <h2 class="main-title-heading">Technology</h2>
         <div class="main-subtitle">latest news about technology</div>
       </div>
       <div class="tech-category-list-wrapper w-dyn-list">
@@ -125,7 +136,7 @@ const mainBlogPosts = sortedPosts.slice(0, 3);
               <a href={`/blog/${post.slug}`} data-w-id="e42a7868-a1ff-3fab-a88f-530c4a479735" class="tech-category-item w-inline-block">
                 <img alt={post.data.title} src={post.data.featuredImage} class="tech-category-image" />
                 <div class="tech-text-box">
-                  <h4 class="tech-category-heading">{post.data.title}</h4>
+                   <h4 class="tech-category-heading">{post.data.title}</h4>
                   <div class="tech-category-time">
                     {new Date(post.data.publishedDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                   </div>
@@ -142,8 +153,8 @@ const mainBlogPosts = sortedPosts.slice(0, 3);
   <section class="education-category-section">
     <div class="w-layout-blockcontainer main-container w-container">
       <div class="main-title">
-        <h2 class="main-title-heading">education</h2>
-        <div class="main-subtitle">latest news about technology</div>
+        <h2 class="main-title-heading">Books</h2>
+        <div class="main-subtitle">latest news about books</div>
       </div>
 
       <div id="w-node-_9cd442b5-de66-2bb7-b333-bbce06bf2e44-bc733643" class="w-layout-layout education-category-stack wf-layout-layout">

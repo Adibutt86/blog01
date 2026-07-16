@@ -7,8 +7,15 @@ const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 // Get unique tags across all posts
 const allTags = Array.from(new Set(allPosts.flatMap(post => post.data.tags || [])));
 
-// Get latest 3 posts for the aside list
-const latestAsidePosts = allPosts.slice(0, 3);
+// Get latest 3 posts for the aside list, excluding specified ones
+const excludedTitles = [
+  'Beyond Books: Practical Learning Adventures',
+  "Bio Wonders: Nature's Marvels Explored",
+  'Console Corner: Exploring Gaming Platforms'
+];
+const latestAsidePosts = allPosts
+  .filter(post => !excludedTitles.includes(post.data.title))
+  .slice(0, 3);
 ---
 
 <div class="aside">
