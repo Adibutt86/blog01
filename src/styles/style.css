@@ -1638,8 +1638,7 @@ blockquote {
 }
 
 .home-category-list .w-dyn-item {
-  flex: 0 0 calc(25% - 12px); /* Same size as original 4-column layout */
-  min-width: 260px; /* Prevent shrinking too small so it acts as carousel */
+  flex: 0 0 calc(25% - 12px); /* Same size as original 4-column layout on desktop */
   scroll-snap-align: start;
 }
 
@@ -1680,12 +1679,18 @@ blockquote {
   right: -22px;
 }
 
+@media (max-width: 991px) {
+  .home-category-list .w-dyn-item {
+    flex: 0 0 calc(50% - 8px); /* Same size as original 2-column layout on tablet */
+  }
+}
+
 @media (max-width: 768px) {
   .carousel-arrow {
-    display: none; /* Hide arrows on mobile and tablet where touch scrolling is natural */
+    display: none; /* Hide arrows on mobile where touch scrolling is natural */
   }
   .home-category-list .w-dyn-item {
-    flex: 0 0 250px; /* Compact size for mobile carousel */
+    flex: 0 0 100%; /* Same size as original full-width layout on mobile */
   }
 }
 
